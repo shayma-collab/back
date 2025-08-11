@@ -20,9 +20,14 @@ public class Etudiant {
     private String departement;
     private String specialite;
     private String motDePasse;
+    private String email;
+
+    // getter & setter
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
     // Constructeur complet
-    public Etudiant(Long id, String nom, String prenom, String emailInstitutionnel, String niveau, String departement, String specialite, String motDePasse) {
+    public Etudiant(Long id, String nom,String email, String prenom, String emailInstitutionnel, String niveau, String departement, String specialite, String motDePasse) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -31,6 +36,8 @@ public class Etudiant {
         this.departement = departement;
         this.specialite = specialite;
         this.motDePasse = motDePasse;
+        this.email = email;
+
     }
 
     // Constructeur par défaut

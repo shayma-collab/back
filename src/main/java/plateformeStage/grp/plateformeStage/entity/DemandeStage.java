@@ -1,10 +1,50 @@
 package plateformeStage.grp.plateformeStage.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+
 @Entity
 public class DemandeStage {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateDebut;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateFin;
+
+    private String entreprise;
+    private String sujet;
+    private String organismeAccueil;
+    private String departement;
+    private String responsableDirect;
+    private String fonctionResponsableDirect;
+    private String adresse;
+    private String fax;
+    private String tel;
+    private String email;
+
+    private String etat;
+
+    @ManyToOne
+    private OffreStage offreStage;
+
+    @ManyToOne
+    private Etudiant etudiant;
+
+    // Getters & Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDate getDateDebut() {
         return dateDebut;
@@ -16,56 +56,10 @@ public class DemandeStage {
 
     public LocalDate getDateFin() {
         return dateFin;
-    }   @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
-
+    }
 
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
-    }
-    private String entreprise;
-    private String sujet;
-    private String organismeAccueil;
-    private String departement;
-    private String responsableDirect;
-    private String fonctionResponsableDirect;
-    private String adresse;
-    private String fax;
-    private String tel;
-    private String email;
-    private String cvPath;
-    private String etat;
-    @ManyToOne
-    private OffreStage offreStage;
-
-    public OffreStage getOffreStage() {
-        return offreStage;
-    }
-
-    public void setOffreStage(OffreStage offreStage) {
-        this.offreStage = offreStage;
-    }
-
-
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEntreprise() {
@@ -83,13 +77,6 @@ public class DemandeStage {
     public void setSujet(String sujet) {
         this.sujet = sujet;
     }
-
-
-
-
-
-
-
 
     public String getOrganismeAccueil() {
         return organismeAccueil;
@@ -155,12 +142,20 @@ public class DemandeStage {
         this.email = email;
     }
 
-    public String getCvPath() {
-        return cvPath;
+    public String getEtat() {
+        return etat;
     }
 
-    public void setCvPath(String cvPath) {
-        this.cvPath = cvPath;
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public OffreStage getOffreStage() {
+        return offreStage;
+    }
+
+    public void setOffreStage(OffreStage offreStage) {
+        this.offreStage = offreStage;
     }
 
     public Etudiant getEtudiant() {
@@ -170,8 +165,4 @@ public class DemandeStage {
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
     }
-
-    // ✅ Relation avec l'étudiant uniquement
-    @ManyToOne
-    private Etudiant etudiant;
 }
