@@ -1,11 +1,34 @@
 package plateformeStage.grp.plateformeStage.mapper;
 
 import plateformeStage.grp.plateformeStage.dto.DemandeStageDto;
+import plateformeStage.grp.plateformeStage.dto.DemandeStageRequest;
 import plateformeStage.grp.plateformeStage.entity.DemandeStage;
 
 public final class DemandeStageMapper {
 
     private DemandeStageMapper() {
+    }
+    public static DemandeStage toEntity(DemandeStageRequest request) {
+        if (request == null) return null;
+
+        DemandeStage entity = new DemandeStage();
+        entity.setEntreprise(request.getEntreprise());
+        entity.setSujet(request.getSujet());
+        entity.setDateDebut(request.getDateDebut());
+        entity.setDateFin(request.getDateFin());
+        entity.setEtat("En attente"); // Par défaut, l'état est "En attente"
+
+        // Les autres champs peuvent être ajoutés si nécessaire
+        entity.setOrganismeAccueil(request.getOrganismeAccueil());
+        entity.setDepartement(request.getDepartement());
+        entity.setResponsableDirect(request.getResponsableDirect());
+        entity.setFonctionResponsableDirect(request.getFonctionResponsableDirect());
+        entity.setAdresse(request.getAdresse());
+        entity.setFax(request.getFax());
+        entity.setTel(request.getTel());
+        entity.setEmail(request.getEmail());
+
+        return entity;
     }
 
     public static DemandeStage toEntity(DemandeStageDto dto) {
