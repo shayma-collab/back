@@ -1,10 +1,8 @@
 package plateformeStage.grp.plateformeStage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import plateformeStage.grp.plateformeStage.dto.DemandeStageRequest;
 import plateformeStage.grp.plateformeStage.entity.DemandeStage;
@@ -26,27 +24,23 @@ public class DemandeStageController {
     @Autowired
     private EtudiantRepository etudiantRepository;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> recevoirDemande(@ModelAttribute DemandeStageRequest demande,
-                                                    @RequestParam(value = "cvFile", required = false)  MultipartFile cvFile) {
+    // Méthode modifiée pour consommer du JSON avec @RequestBody
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<String> recevoirDemande(@RequestBody DemandeStageRequest demande) {
         try {
-            // 1️⃣ Vérifier si l'étudiant existe
+            // Vérifier si l'étudiant existe
             Optional<Etudiant> etudiantOpt = etudiantRepository.findByEmailInstitutionnel(demande.getEmail());
             if (etudiantOpt.isEmpty()) {
-                // ✅ Retourne toujours 200 mais avec un message clair
                 return ResponseEntity.ok("⚠️ Aucun étudiant trouvé avec cet email. Demande non enregistrée.");
             }
             DemandeStage demandeStage = DemandeStageMapper.toEntity(demande);
-            // 2️⃣ Associer l'étudiant trouvé
             demandeStage.setEtudiant(etudiantOpt.get());
 
-            // 3️⃣ Sauvegarder en BDD
-            DemandeStage addedDemandeStage= demandeStageRepository.save(demandeStage);
+            DemandeStage addedDemandeStage = demandeStageRepository.save(demandeStage);
 
             return ResponseEntity.ok(addedDemandeStage.getId().toString());
 
         } catch (Exception e) {
-            // ✅ Même pour les erreurs, on retourne 200 mais avec message
             return ResponseEntity.ok("Erreur interne : " + e.getMessage());
         }
     }
