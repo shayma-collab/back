@@ -41,9 +41,9 @@ public class DemandeStageController {
             demandeStage.setEtudiant(etudiantOpt.get());
 
             // 3️⃣ Sauvegarder en BDD
-            demandeStageRepository.save(demandeStage);
+            DemandeStage temp= demandeStageRepository.save(demandeStage);
 
-            return ResponseEntity.ok(" Demande enregistrée avec succès");
+            return ResponseEntity.ok(temp.getId().toString());
 
         } catch (Exception e) {
             // ✅ Même pour les erreurs, on retourne 200 mais avec message
