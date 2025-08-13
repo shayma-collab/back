@@ -38,7 +38,7 @@ public class DemandeStageController {
 
             DemandeStage addedDemandeStage = demandeStageRepository.save(demandeStage);
 
-            return ResponseEntity.ok(addedDemandeStage.getId().toString());
+            return ResponseEntity.ok(" Demande enregistrée avec succès");
 
         } catch (Exception e) {
             return ResponseEntity.ok("Erreur interne : " + e.getMessage());
