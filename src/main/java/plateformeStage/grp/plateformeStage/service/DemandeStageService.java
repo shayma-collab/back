@@ -3,7 +3,6 @@ package plateformeStage.grp.plateformeStage.service;
 import org.springframework.stereotype.Service;
 import plateformeStage.grp.plateformeStage.entity.DemandeStage;
 import plateformeStage.grp.plateformeStage.repository.DemandeStageRepository;
-
 import java.util.List;
 
 @Service
